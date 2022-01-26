@@ -21,19 +21,7 @@ public class S3Uploader implements Uploader {
 	@Override
 	public void upload(List<String> files) {
 		// TODO Auto-generated method stub
-		AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withRegion(Regions.US_WEST_2)
-                .build();
-		Region region = Region.US_WEST_2;
-        S3Client s3 = S3Client.builder().region(region).build();
-
-        String bucket = "new-bucket12345";
-        String key = "key";
-
-        // Put Object
-        s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
-                .build(), RequestBody.fromByteBuffer(getRandomByteBuffer(10000)));
-
-	}
+		
+			}
 
 }

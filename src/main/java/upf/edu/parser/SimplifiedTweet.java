@@ -40,10 +40,10 @@ public class SimplifiedTweet {
 
 		// PLACE YOUR CODE HERE!
 
-		JsonObject jo = JsonParser.parseString(jsonStr).getAsJsonObject();
-		String name = "";
-		Long id = (long) 0;
 		try {
+			JsonObject jo = JsonParser.parseString(jsonStr).getAsJsonObject();
+			String name = "";
+			Long id = (long) 0;
 			if (jo.has("user")) {
 				JsonObject userObj = jo.getAsJsonObject("user");
 				name = jo.getAsJsonObject("user").get("name").getAsString();
@@ -52,7 +52,7 @@ public class SimplifiedTweet {
 			}
 			SimplifiedTweet tweet = new SimplifiedTweet(jo.get("id").getAsLong(), jo.get("text").getAsString(), id,
 					name, jo.get("lang").getAsString(), jo.get("timestamp_ms").getAsLong());
-			Optional<SimplifiedTweet> optionalTweet = Optional.ofNullable(tweet);
+			Optional<SimplifiedTweet> optionalTweet = Optional.of(tweet);
 			return optionalTweet;
 
 		} catch (Exception ex) {

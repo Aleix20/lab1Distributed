@@ -47,7 +47,7 @@ public class S3Uploader implements Uploader {
 	public AmazonS3 createBucket(String bucketName, String profile) {
 		/* Create S3 Client Object */
 
-		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(profile)).build();
+		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).withCredentials(new ProfileCredentialsProvider(profile)).build();
 
 		Bucket b = null;
 		if (s3.doesBucketExistV2(bucketName)) {

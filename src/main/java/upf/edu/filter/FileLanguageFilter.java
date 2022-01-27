@@ -32,12 +32,19 @@ public class FileLanguageFilter implements LanguageFilter {
 			BufferedReader buffReader = new BufferedReader(fileReader);
 			String strCurrentLine;
 			while ((strCurrentLine = buffReader.readLine()) != null) {
-				SimplifiedTweet tweet = SimplifiedTweet.fromJson(strCurrentLine).get();
-				if (tweet.getLanguage().equals(language)) {
-					buffWriter.write(tweet.toString());
+				try {
+					SimplifiedTweet tweet = SimplifiedTweet.fromJson(strCurrentLine).get();
+					if (tweet.getLanguage().equals(language)) {
+						buffWriter.write(tweet.toString());
+						System.out.println("Tweet saved");
 
+					}
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
 				}
+
 			}
+
 			buffWriter.close();
 			buffReader.close();
 		} catch (IOException e) {

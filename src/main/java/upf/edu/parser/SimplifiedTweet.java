@@ -41,21 +41,24 @@ public class SimplifiedTweet {
 		// PLACE YOUR CODE HERE!
 
 		JsonObject jo = JsonParser.parseString(jsonStr).getAsJsonObject();
-		String name = null;
-		Long id = null;
+		String name = "";
+		Long id = (long) 0;
+		try {
+			if (jo.has("user")) {
+				JsonObject userObj = jo.getAsJsonObject("user");
+				name = jo.getAsJsonObject("user").get("name").getAsString();
+				id = jo.getAsJsonObject("user").get("id").getAsLong();
 
-		if (jo.has("user")) {
-			JsonObject userObj = jo.getAsJsonObject("user");
-			name = jo.getAsJsonObject("user").get("name").getAsString();
-			id = jo.getAsJsonObject("user").get("id").getAsLong();
+			}
+			SimplifiedTweet tweet = new SimplifiedTweet(jo.get("id").getAsLong(), jo.get("text").getAsString(), id,
+					name, jo.get("lang").getAsString(), jo.get("timestamp_ms").getAsLong());
+			Optional<SimplifiedTweet> optionalTweet = Optional.ofNullable(tweet);
+			return optionalTweet;
 
+		} catch (Exception ex) {
+			System.out.println("Null found");
+			return Optional.empty();
 		}
-		SimplifiedTweet tweet = new SimplifiedTweet(jo.get("id").getAsLong(), jo.get("text").getAsString(), id, name,
-				jo.get("lang").getAsString(), jo.get("timestamp_ms").getAsLong());
-
-		Optional<SimplifiedTweet> optionalTweet = Optional.ofNullable(tweet);
-
-		return optionalTweet;
 
 	}
 

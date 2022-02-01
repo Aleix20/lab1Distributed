@@ -26,7 +26,7 @@ public class FileLanguageFilter implements LanguageFilter {
 
 		try {
 
-			FileReader fileReader = new FileReader(input);
+			FileReader fileReader = new FileReader(this.input);
 			FileWriter fileWriter = new FileWriter(output);
 			BufferedWriter buffWriter = new BufferedWriter(fileWriter);
 			BufferedReader buffReader = new BufferedReader(fileReader);
@@ -35,7 +35,7 @@ public class FileLanguageFilter implements LanguageFilter {
 				try {
 					SimplifiedTweet tweet = SimplifiedTweet.fromJson(strCurrentLine).get();
 					if (tweet.getLanguage().equals(language)) {
-						buffWriter.write(tweet.toString());
+						buffWriter.append(tweet.toString());
 						System.out.println("Tweet saved");
 
 					}

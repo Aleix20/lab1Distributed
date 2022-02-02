@@ -32,11 +32,12 @@ public class S3Uploader implements Uploader {
 		// TODO Auto-generated method stub
 		final AmazonS3 s3 = createBucket(this.bucketName, this.profile);
 
-		while (!files.isEmpty()) {
-			int i = 0;
+		for(int i=0; i<files.size();i++) {
 			
-			s3.putObject(this.bucketName, new File(files.get(i)).getName(), prefix + (new File(files.get(i))).getName());
+			
+			s3.putObject(this.bucketName, prefix + new File(files.get(i)).getName(), (new File(files.get(i))));
 			i++;
+			System.out.println("File uploaded");
 		}
 
 	}

@@ -29,7 +29,7 @@ public class TwitterFilter {
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime)/1000000; 
 		System.out.println("Duration filter files: "+duration);
-		final S3Uploader uploader = new S3Uploader(bucket, "prefix", "default");
+		final S3Uploader uploader = new S3Uploader("pg.cm.am.lsds", "prefix/", "default");
 		uploader.upload(Arrays.asList(outputFile));
 	}
 }

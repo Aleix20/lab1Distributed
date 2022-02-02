@@ -56,7 +56,7 @@ public class SimplifiedTweet {
 			return optionalTweet;
 
 		} catch (Exception ex) {
-			System.out.println("Null found");
+			//System.out.println("Null found");
 			return Optional.empty();
 		}
 

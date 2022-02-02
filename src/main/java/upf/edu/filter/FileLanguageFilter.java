@@ -38,11 +38,11 @@ public class FileLanguageFilter implements LanguageFilter {
 					if (tweet.getLanguage().equals(language)) {
 						counterTweet++;
 						buffWriter.append(tweet.toString());
-						System.out.println("Tweet saved");
+						//System.out.println("Tweet saved");
 
 					}
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 				}
 
 			}
@@ -50,7 +50,7 @@ public class FileLanguageFilter implements LanguageFilter {
 			buffWriter.close();
 			buffReader.close();
 		} catch (IOException e) {
-			System.out.println("An error occurred.");
+			//System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
 

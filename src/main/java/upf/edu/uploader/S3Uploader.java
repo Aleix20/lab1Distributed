@@ -30,11 +30,14 @@ public class S3Uploader implements Uploader {
 	@Override
 	public void upload(List<String> files) {
 		// TODO Auto-generated method stub
+
+		// We create a bucket and we recover the client S3 connection
 		final AmazonS3 s3 = createBucket(this.bucketName, this.profile);
 
-		for(int i=0; i<files.size();i++) {
-			
-			
+		for (int i = 0; i < files.size(); i++) {
+
+			// While we have files we upload
+
 			s3.putObject(this.bucketName, prefix + new File(files.get(i)).getName(), (new File(files.get(i))));
 			i++;
 			System.out.println("File uploaded");
@@ -44,16 +47,17 @@ public class S3Uploader implements Uploader {
 
 	public AmazonS3 createBucket(String bucketName, String profile) {
 		/* Create S3 Client Object */
-
 		final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(profile))
 				.withRegion(Regions.US_EAST_1).build();
 		Bucket b = null;
+		// If the bucket exists we don't create a new one, we get the already existing one
 		if (s3.doesBucketExistV2(bucketName)) {
 			System.out.format("Bucket %s already exists.\n", bucketName);
 			b = getBucket(bucketName, profile);
 
 		} else {
 			try {
+				// We create a new bucket
 				b = s3.createBucket(bucketName);
 			} catch (AmazonS3Exception e) {
 				System.err.println(e.getErrorMessage());
@@ -61,17 +65,20 @@ public class S3Uploader implements Uploader {
 		}
 		return s3;
 	}
+
 	public static Bucket getBucket(String bucket_name, String profile) {
-        final AmazonS3 s3 =AmazonS3ClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(profile))
+		// We login into the s3 client
+		final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(profile))
 				.withRegion(Regions.US_EAST_1).build();
-        Bucket named_bucket = null;
-        List<Bucket> buckets = s3.listBuckets();
-        for (Bucket b : buckets) {
-            if (b.getName().equals(bucket_name)) {
-                named_bucket = b;
-            }
-        }
-        return named_bucket;
-    }
+		Bucket named_bucket = null;
+		List<Bucket> buckets = s3.listBuckets();
+		// We check every bucket in our S3 client and we compare them with our bucket name
+		for (Bucket b : buckets) {
+			if (b.getName().equals(bucket_name)) {
+				named_bucket = b;
+			}
+		}
+		return named_bucket;
+	}
 
 }

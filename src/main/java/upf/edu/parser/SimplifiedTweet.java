@@ -21,6 +21,7 @@ public class SimplifiedTweet {
 
 	public SimplifiedTweet(long tweetId, String text, long userId, String userName, String language, long timestampMs) {
 		// PLACE YOUR CODE HERE!
+		//We assign the values from the arguments of the constructor
 		this.tweetId = tweetId;
 		this.text = text;
 		this.userId = userId;
@@ -39,8 +40,9 @@ public class SimplifiedTweet {
 	public static Optional<SimplifiedTweet> fromJson(String jsonStr) {
 
 		// PLACE YOUR CODE HERE!
-
+		//We take the json string and we parse it to javascript object 
 		try {
+			//We check the attributes of the java object
 			JsonObject jo = JsonParser.parseString(jsonStr).getAsJsonObject();
 			String name = "";
 			Long id = (long) 0;
@@ -50,14 +52,16 @@ public class SimplifiedTweet {
 				id = jo.getAsJsonObject("user").get("id").getAsLong();
 
 			}
+			//We construct the simplified tweet:
 			SimplifiedTweet tweet = new SimplifiedTweet(jo.get("id").getAsLong(), jo.get("text").getAsString(), id,
 					name, jo.get("lang").getAsString(), jo.get("timestamp_ms").getAsLong());
 			Optional<SimplifiedTweet> optionalTweet = Optional.of(tweet);
 			return optionalTweet;
 
 		} catch (Exception ex) {
-			//System.out.println("Null found");
-			return Optional.empty();
+			//We check if there are nulls in the json string 
+			System.out.println("Null found");
+			return Optional.empty(); //We return empty to avoid JavaNullException
 		}
 
 	}

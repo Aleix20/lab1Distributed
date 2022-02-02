@@ -25,16 +25,18 @@ public class FileLanguageFilter implements LanguageFilter {
 	public void filterLanguage(String language) throws Exception {
 
 		try {
-
+			//We open the files to read their content 
 			FileReader fileReader = new FileReader(this.input);
 			FileWriter fileWriter = new FileWriter(output);
 			BufferedWriter buffWriter = new BufferedWriter(fileWriter);
 			BufferedReader buffReader = new BufferedReader(fileReader);
 			String strCurrentLine;
+			//We create a counter to get the total number of tweets
 			int counterTweet=0;
 			while ((strCurrentLine = buffReader.readLine()) != null) {
 				try {
 					SimplifiedTweet tweet = SimplifiedTweet.fromJson(strCurrentLine).get();
+					//We only take into account the tweets in that specified language
 					if (tweet.getLanguage().equals(language)) {
 						counterTweet++;
 						buffWriter.append(tweet.toString());

@@ -60,7 +60,7 @@ public class SimplifiedTweet {
 
 		} catch (Exception ex) {
 			//We check if there are nulls in the json string 
-			System.out.println("Null found");
+			//System.out.println("Null found");
 			return Optional.empty(); //We return empty to avoid JavaNullException
 		}
 

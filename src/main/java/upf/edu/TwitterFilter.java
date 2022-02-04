@@ -27,9 +27,9 @@ public class TwitterFilter {
 	
 		}
 		long endTime = System.nanoTime(); //We get the finish time of the execution process
-		long duration = (endTime - startTime)/1000000; //We get the total duration of the execution in ms
-		System.out.println("Duration filter files: "+duration);
-		final S3Uploader uploader = new S3Uploader(bucket, "prefix", "default"); 
+		long duration = (endTime - startTime)/1000000000; //We get the total duration of the execution in ms
+		System.out.println("Duration filter files: "+duration+" s");
+		final S3Uploader uploader = new S3Uploader(bucket, "solutionalab1/", "default"); 
 		uploader.upload(Arrays.asList(outputFile)); //We upload the file
 	}
 }

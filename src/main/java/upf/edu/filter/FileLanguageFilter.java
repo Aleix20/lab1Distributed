@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import upf.edu.filter.LanguageFilter;
@@ -34,19 +35,21 @@ public class FileLanguageFilter implements LanguageFilter {
 			//We create a counter to get the total number of tweets
 			int counterTweet=0;
 			while ((strCurrentLine = buffReader.readLine()) != null) {
-				try {
-					SimplifiedTweet tweet = SimplifiedTweet.fromJson(strCurrentLine).get();
-					//We only take into account the tweets in that specified language
-					if (tweet.getLanguage().equals(language)) {
-						counterTweet++;
-						buffWriter.append(tweet.toString());
-						buffWriter.append("\n");
-						//System.out.println("Tweet saved");
+				
+				Optional<SimplifiedTweet> optTweet = SimplifiedTweet.fromJson(strCurrentLine);
+					if(optTweet.isPresent()) {
+						SimplifiedTweet tweet = optTweet.get();
+						//We only take into account the tweets in that specified language
+						if (tweet.getLanguage().equals(language)) {
+							counterTweet++;
+							buffWriter.append(tweet.toString());
+							buffWriter.append("\n");
+							//System.out.println("Tweet saved");
 
+						}
 					}
-				} catch (Exception e) {
-					//System.out.println(e.getMessage());
-				}
+					
+				
 
 			}
 			System.out.println("There are "+ counterTweet +" in that language " + language);
